@@ -15,7 +15,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
     <style>
-        .navbar {
+       .navbar {
             background: #65b0fa !important;
             padding: 1px !important;
         }
@@ -31,8 +31,9 @@
             padding: 0 5px !important;
         }
 
+
         body {
-            background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("../static/image/sales.jpg");
+            background-image: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url("../static/image/sales.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -51,7 +52,7 @@
         }
 
         .input-group-text {
-            width: 220px !important;
+            width: 200px !important;
         }
 
         input[type=text],
@@ -88,13 +89,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./about.html">About Us</a>
+                        <a class="nav-link active" aria-current="page" href="{{url_for('about')}}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="./graph.html">Graph</a>
+                        <a class="nav-link" aria-current="page" href="{{url_for('graph')}}">Graph</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Prediction</a>
+                        <a class="nav-link" aria-current="page" href="{{url_for('form')}}">Prediction</a>
                     </li>
                 </ul>
             </div>
@@ -102,27 +103,32 @@
     </nav>
     <div class="wrapper">
         <div id="form">
-            <form action="" method="post">
+            <form action="{{url_for('result')}}" >
                 <div class="input-group mb-3">
                     <span class="input-group-text">Item Identifier</span>
                     <input type="text" name="Item_Identifier" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
+                        aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Item Weight</span>
-                    <input type="number" name="Item_Weight" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
+                    <input type="text" name="Item_Weight" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Item Visibility</span>
+                    <input type="text" name="Item_Visibility" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Item Fat Content</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
+                    <select class="form-control" class="form-select" aria-label="Default select example" name="Item_Fat_Content" required>
                         <option selected value="low fat">Low Fat</option>
                         <option value="regular">Regular</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Item Type</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
+                    <select class="form-control" class="form-select" aria-label="Default select example" name="Item_Type" required>
                         <option selected value="Dairy">Dairy</option>
                         <option value="Soft Drinks">Soft Drinks</option>
                         <option value="Meat">Meat</option>
@@ -143,12 +149,12 @@
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Item MRP</span>
-                    <input type="number" name="Item_Weight" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
+                    <input type="text" name="Item_MRP" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Outlet ID</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
+                    <select class="form-control" class="form-select" aria-label="Default select example" name="Outlet_ID" required>
                         <option selected value="OUT049">OUT049</option>
                         <option value="OUT018">OUT018</option>
                         <option value="OUT010">OUT010</option>
@@ -163,7 +169,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Outlet Establishment Year</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
+                    <select class="form-control" class="form-select" aria-label="Default select example" required name="Outlet_Establishment_Year" required>
                         <option selected value="1985">1985</option>
                         <option value="1987">1987</option>
                         <option value="1997">1997</option>
@@ -177,23 +183,23 @@
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Outlet Size</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
-                        <option selected value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
+                    <select class="form-control" class="form-select" aria-label="Default select example" name="Outlet_Size" required>
+                        <option selected value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Outlet Location</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
-                        <option selected value="tier 1">Tier 1</option>
-                        <option value="tier 2">Tier 2</option>
-                        <option value="tier 3">Tier 3</option>
+                    <select class="form-control" class="form-select" aria-label="Default select example" name="Outlet_Location" required>
+                        <option selected value="Tier 1">Tier 1</option>
+                        <option value="Tier 2">Tier 2</option>
+                        <option value="Tier 3">Tier 3</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Outlet Type</span>
-                    <select class="form-control" class="form-select" aria-label="Default select example">
+                    <select class="form-control" class="form-select" aria-label="Default select example" name="Outlet_Type" required>
                         <option selected value="Supermarket Type 1">Supermarket Type 1</option>
                         <option value="Supermarket Type 2">Supermarket Type 2</option>
                         <option value="Supermarket Type 3">Supermarket Type 3</option>
