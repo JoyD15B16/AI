@@ -1,0 +1,13 @@
+.navbar{
+    background: #65b0fa!important;
+    padding: 1px !important;
+}
+.navbar-brand{
+    font-size: 24px;
+    padding: 0!important;
+    /* font-weight: 700; */
+}
+.nav-link{
+    margin: 0!important;
+    padding: 0 5px!important;
+}
