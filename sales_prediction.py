@@ -111,6 +111,48 @@ li.fit(x,y)
 
 
 
+def predict_sales(**Input_values):
+    print(Input_values)
+    new_df = pd.DataFrame({
+        'item_identifier': Input_values['Item_Identifier'],
+        'item_weight' : [float(Input_values['Item_Weight'])],
+        'item_visibility' : [float(Input_values['Item_Visibility'])],
+        'item_fat_content' : Input_values['Item_Fat_Content'],
+        'item_type': Input_values['Item_Type'], 
+        'item_mrp':[float(Input_values['Item_MRP'])],
+        'outlet_identifier':Input_values['Outlet_ID'],
+        'outlet_establishment_year':[int(Input_values['Outlet_Establishment_Year'])],
+        'outlet_size':Input_values['Outlet_Size'],
+        'outlet_location_type' : Input_values['Outlet_Location'],
+        'outlet_type':Input_values['Outlet_Type'],
+    })
+    
+    new_df.columns = new_df.columns.str.lower()
+
+    group_mean_weight = data.pivot_table(index = ["item_type"], values = "item_weight", aggfunc = [np.mean])
+
+    mean_weight = group_mean_weight.iloc[:,[0][0]]
+    
+    new_df["item_weight"] = new_df[["item_type","item_weight"]].apply(missing_value, axis = 1)
+
+    new_df["item_fat_content"] = new_df["item_fat_content"].str.replace("LF", "low fat").str.replace("reg", 
+       "regular").str.lower()
+    
+    mean_visibility = data.pivot_table(index = "item_identifier",  values = "item_visibility")
+    new_df.loc[(new_df["item_visibility"] == 0.0), "item_visibility"] = new_df.loc[(data["item_visibility"] == 
+       0.0), "item_identifier"].apply(lambda x : mean_visibility.at[x, "item_visibility"])
+    
+    for i in cols:
+      x  = new_df[i].value_counts().to_dict()
+      new_df[i] = new_df[i].map(x)
+
+    new_data_df =new_df.drop(["item_weight","item_identifier", "item_type", 
+         "item_fat_content","outlet_location_type"], axis = 1)
+    
+    result = li.predict(new_data_df)
+    
+    return int(result)
+
 
 
 
